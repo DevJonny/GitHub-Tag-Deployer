@@ -1,19 +1,40 @@
 ﻿<Window x:Class="GitHub_Tag_Deployer.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="GitHub Tag Deployer" Height="229" Width="525">
+        Title="GitHub Tag Deployer" Height="229" Width="525" ResizeMode="NoResize">
     <Grid>
-        <Label Content="Username:" HorizontalAlignment="Left" Margin="10,7,0,0" VerticalAlignment="Top"/>
-        <TextBox Name="username" HorizontalAlignment="Left" Height="23" Margin="81,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" RenderTransformOrigin="0.542,0.087"/>
-        <Label Content="Password:" HorizontalAlignment="Left" Margin="230,7,0,0" VerticalAlignment="Top"/>
-        <PasswordBox Name="password" HorizontalAlignment="Left" Margin="298,10,0,0" VerticalAlignment="Top" Width="190" Height="23"/>
-        <Label Content="Tag URL to deploy:" HorizontalAlignment="Left" Margin="10,38,0,0" VerticalAlignment="Top"/>
-        <TextBox Name="tagUrlToDeploy" HorizontalAlignment="Left" Height="23" Margin="125,41,0,0" TextWrapping="NoWrap" VerticalAlignment="Top" Width="363"/>
-        <Label Content="Rollback Tag URL:" HorizontalAlignment="Left" Margin="10,69,0,0" VerticalAlignment="Top"/>
-        <TextBox Name="rollbackTagUrl" HorizontalAlignment="Left" Height="23" Margin="125,72,0,0" TextWrapping="NoWrap" VerticalAlignment="Top" Width="363" />
-        <Label Content="Deploy directory:" HorizontalAlignment="Left" Margin="10,100,0,0" VerticalAlignment="Top"/>
-        <TextBox Name="deployDirectory" HorizontalAlignment="Left" Height="23" Margin="125,100,0,0" TextWrapping="NoWrap" VerticalAlignment="Top" Width="363"/>
-        <Button x:Name="deploy" Content="Deploy" HorizontalAlignment="Left" Margin="324,150,0,0" VerticalAlignment="Top" Width="75" Click="deploy_click"/>
-        <Button x:Name="rollback" Content="Rollback" HorizontalAlignment="Left" Margin="413,150,0,0" VerticalAlignment="Top" Width="75" Click="rollback_Click"/>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+
+        <Label Content="Username:" HorizontalAlignment="Right" VerticalAlignment="Top"/>
+        <TextBox Name="txtUsername"  Grid.Column="1" Margin="5" VerticalAlignment="Top"/>
+
+        <Label Content="Password:" Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Top"/>
+        <PasswordBox Name="txtPassword"  Grid.Column="3" Margin="5" VerticalAlignment="Top" />
+
+        <Label Content="Tag URL to deploy:" Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Top"/>
+        <TextBox Name="txtTagUrlToDeploy"  Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" Margin="5" VerticalAlignment="Top"/>
+
+        <Label Content="Rollback Tag URL:" Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Top"/>
+        <TextBox Name="txtRollbackTagUrl"  Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="3" Margin="5" VerticalAlignment="Top"/>
+
+        <Label Content="Deploy Directory:" Grid.Row="3" HorizontalAlignment="Right" VerticalAlignment="Top"/>
+        <TextBox Name="txtDeployDirectory"  Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="3" Margin="5" VerticalAlignment="Top"/>
+
+        <Button Name="btnDeploy" Grid.Row="4" Grid.Column="2" Content="Deploy" Margin="15,5,15,5" VerticalAlignment="Top"/>
+        <Button Name="btnRollback" Grid.Row="4" Grid.Column="3" Content="Rollback" Margin="15,5,15,5" VerticalAlignment="Top" Click="btnRollback_Click"/>
     </Grid>
 </Window>

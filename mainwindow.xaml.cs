@@ -13,31 +13,37 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace GitHub_Tag_Deployer {
+namespace GitHub_Tag_Deployer
+{
 
-    public partial class MainWindow : Window {
+    public partial class MainWindow : Window
+    {
 
         private FileUtil fileUtil;
         private GitHubAPIUtil gitHubApiUtil;
 
-        public MainWindow() {
+        public MainWindow()
+        {
             InitializeComponent();
 
             gitHubApiUtil = new GitHubAPIUtil();
             fileUtil = new FileUtil();
         }
 
-        private void deploy_click(object sender, RoutedEventArgs e) {
-            deployTag(tagUrlToDeploy.Text);
+        private void deploy_click(object sender, RoutedEventArgs e)
+        {
+            deployTag(txtTagUrlToDeploy.Text);
         }
 
-        private void rollback_Click(object sender, RoutedEventArgs e) {
-            deployTag(rollbackTagUrl.Text);
+        private void deployTag(String tagUrl)
+        {
+            gitHubApiUtil.fetchTag(txtUsername.Text, txtPassword.Password, tagUrl, txtDeployDirectory.Text);
+            fileUtil.unpackTag(tagUrl, txtDeployDirectory.Text);
         }
 
-        private void deployTag(String tagUrl) {
-            gitHubApiUtil.fetchTag(username.Text, password.Password, tagUrl, deployDirectory.Text);
-            fileUtil.unpackTag(tagUrl, deployDirectory.Text);
+        private void btnRollback_Click(object sender, RoutedEventArgs e)
+        {
+            deployTag(txtRollbackTagUrl.Text);
         }
     }
 }
