@@ -15,10 +15,8 @@ using System.Windows.Shapes;
 
 namespace GitHub_Tag_Deployer
 {
-
     public partial class MainWindow : Window
     {
-
         private FileUtil fileUtil;
         private GitHubAPIUtil gitHubApiUtil;
 
@@ -30,20 +28,59 @@ namespace GitHub_Tag_Deployer
             fileUtil = new FileUtil();
         }
 
-        private void deploy_click(object sender, RoutedEventArgs e)
-        {
-            deployTag(txtTagUrlToDeploy.Text);
-        }
-
         private void deployTag(String tagUrl)
         {
-            gitHubApiUtil.fetchTag(txtUsername.Text, txtPassword.Password, tagUrl, txtDeployDirectory.Text);
-            fileUtil.unpackTag(tagUrl, txtDeployDirectory.Text);
+            if (ValidateTextBox(txtDeployDirectory.Text, true))
+            {
+                gitHubApiUtil.fetchTag(txtUsername.Text, txtPassword.Password, tagUrl, txtDeployDirectory.Text);
+                fileUtil.unpackTag(tagUrl, txtDeployDirectory.Text);
+            }
+            else
+            {
+                txtDeployDirectory.Text = "Enter a valid Deploy Directory!";
+                txtDeployDirectory.Foreground = Brushes.Red;
+            }
         }
 
         private void btnRollback_Click(object sender, RoutedEventArgs e)
         {
-            deployTag(txtRollbackTagUrl.Text);
+            if (ValidateTextBox(txtRollbackTagUrl.Text))
+                deployTag(txtRollbackTagUrl.Text);
+            else
+            {
+                txtRollbackTagUrl.Text = "Enter a valid Rollback URL!!";
+                txtRollbackTagUrl.Foreground = Brushes.Red;
+            }
+        }
+
+        private bool ValidateTextBox(string text, bool deploy = false)
+        {
+            if (!text.ToLower().StartsWith("http://") && !deploy)
+                return false;
+
+            if (string.IsNullOrEmpty(text))
+                return false;
+
+           return true;
+        }
+
+        private void btnDeploy_Click(object sender, RoutedEventArgs e)
+        {
+            if (ValidateTextBox(txtTagUrlToDeploy.Text))
+                deployTag(txtTagUrlToDeploy.Text);
+            else
+            {
+                txtTagUrlToDeploy.Text = "Enter a valid Rollback URL!!";
+                txtTagUrlToDeploy.Foreground = Brushes.Red;
+            }
+        }
+
+        private void GotFocus(object sender, RoutedEventArgs e)
+        {
+            TextBox txt = (TextBox)sender;
+
+            txt.Foreground = Brushes.Black;
+            txt.Text = "";
         }
     }
 }
