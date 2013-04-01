@@ -1,5 +1,5 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 12.00
+Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GitHub Tag Deployer", "GitHub Tag Deployer.csproj", "{032967D2-6910-4A8E-89E0-E83C1FD4A3DC}"
 EndProject
