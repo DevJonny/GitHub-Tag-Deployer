@@ -1,18 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Ionic.Zip;
-using RestSharp;
+
 
 namespace GitHub_Tag_Deployer
 {
 
     class FileUtil
     {
-
         public void unpackTag(string tagUrl, string unpackDirectory)
         {
 
@@ -20,7 +15,7 @@ namespace GitHub_Tag_Deployer
             string firstDirPath = "";
 
             var tagFile = getTagFilePath(tagUrl, unpackDirectory);
-
+            
             using (ZipFile tag = ZipFile.Read(tagFile))
             {
                 foreach (ZipEntry entry in tag)
@@ -36,7 +31,8 @@ namespace GitHub_Tag_Deployer
 
             DirectoryCopy(unpackDirectory + "\\" + firstDirPath, unpackDirectory);
 
-            Directory.Delete(unpackDirectory + "\\" + firstDirPath, true);
+            FileInfo f = new FileInfo(tagFile);
+            f.Delete();
         }
 
         private void DirectoryCopy(string sourceDirName, string destDirName)
@@ -81,7 +77,40 @@ namespace GitHub_Tag_Deployer
                 tagName = deploymentDir + "\\" + tagUrl.Substring(tagUrl.LastIndexOf("/") + 1);
             }
 
-            return tagName + ".zip";
+            return tagName;
+        }
+
+        public void BackupFolder(string sourceFolder, string destFolder)
+        {
+            string backupFolder = "Backup" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+            backupFolder = backupFolder.Replace(":", "").Replace("-", "").Replace(" ", "");
+
+            string backupFolderPath = destFolder + @"\" + backupFolder;
+            if (!Directory.Exists(backupFolder))
+                Directory.CreateDirectory(backupFolderPath);
+
+            foreach (string dirPath in Directory.GetDirectories(sourceFolder, "*", SearchOption.AllDirectories))
+                Directory.CreateDirectory(dirPath.Replace(sourceFolder, backupFolderPath));
+
+            //Copy all the files
+            foreach (string newPath in Directory.GetFiles(sourceFolder, "*.*",
+                SearchOption.AllDirectories))
+                File.Copy(newPath, newPath.Replace(sourceFolder, backupFolderPath));
+        }
+
+        public void DeleteExistingFiles(string deployDirectory)
+        {
+            foreach (string folder in Directory.GetDirectories(deployDirectory))
+            {
+                DirectoryInfo d = new DirectoryInfo(folder);
+                d.Delete(true);
+            }
+
+            foreach (string file in Directory.GetFiles(deployDirectory))
+            {
+                FileInfo f = new FileInfo(file);
+                f.Delete();
+            }
         }
     }
 }
