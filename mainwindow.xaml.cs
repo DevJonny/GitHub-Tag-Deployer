@@ -1,17 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using GitHubTagDeployer.Properties;
+using System;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace GitHub_Tag_Deployer
 {
@@ -32,7 +23,14 @@ namespace GitHub_Tag_Deployer
         {
             if (ValidateTextBox(txtDeployDirectory.Text, true))
             {
-                gitHubApiUtil.fetchTag(txtUsername.Text, txtPassword.Password, tagUrl, txtDeployDirectory.Text);
+                if (!string.IsNullOrWhiteSpace(txtBackupDirectory.Text))
+                    fileUtil.BackupFolder(txtDeployDirectory.Text, txtBackupDirectory.Text);
+
+                if (cbxDeleteExisting.IsChecked == true)
+                    fileUtil.DeleteExistingFiles(txtDeployDirectory.Text);
+
+                gitHubApiUtil.fetchTag(txtUsername.Text, txtPassword.Password, tagUrl, txtDeployDirectory.Text, cbxProxy.IsChecked);               
+               
                 fileUtil.unpackTag(tagUrl, txtDeployDirectory.Text);
             }
             else
@@ -55,7 +53,7 @@ namespace GitHub_Tag_Deployer
 
         private bool ValidateTextBox(string text, bool deploy = false)
         {
-            if (!text.ToLower().StartsWith("http://") && !deploy)
+            if (!text.ToLower().StartsWith("https://") && !deploy)
                 return false;
 
             if (string.IsNullOrEmpty(text))
@@ -81,6 +79,6 @@ namespace GitHub_Tag_Deployer
 
             txt.Foreground = Brushes.Black;
             txt.Text = "";
-        }
+        }        
     }
 }
