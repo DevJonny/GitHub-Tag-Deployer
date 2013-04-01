@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GitHubTagDeployer.Properties;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -11,5 +12,10 @@ namespace GitHub_Tag_Deployer {
     /// Interaction logic for App.xaml
     /// </summary>
     public partial class App : Application {
+        
+        private void OnExit(object sender, ExitEventArgs e)
+        {
+            Settings.Default.Save();
+        }
     }
 }
