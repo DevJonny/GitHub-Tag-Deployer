@@ -1,14 +1,13 @@
-﻿<Application x:Class="GitHub_Tag_Deployer.App"
+﻿<Application x:Class="GitHubTagDeployer.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"      
-             Exit="OnExit"
-             StartupUri="MainWindow.xaml">
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             StartupUri="Views\MainWindow.xaml">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="./Resources/Styles/Brushes.xaml" />
-                <ResourceDictionary Source="./Resources/Styles/GeneralStyles.xaml" />
-                <ResourceDictionary Source="./Resources/Styles/BlackGlowButtonStyle.xaml" />
+                <ResourceDictionary Source="Resources/ImplicitStylesResourceDictionary.xaml" />
+                <ResourceDictionary Source="Resources/IconsResourceDictionary.xaml" />
+                <ResourceDictionary Source="Resources/StylesResourceDictionary.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

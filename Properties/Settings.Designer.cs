@@ -85,10 +85,10 @@ namespace GitHubTagDeployer.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool DeleteExistingFiles {
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string DeleteExistingFiles {
             get {
-                return ((bool)(this["DeleteExistingFiles"]));
+                return ((string)(this["DeleteExistingFiles"]));
             }
             set {
                 this["DeleteExistingFiles"] = value;
@@ -97,10 +97,10 @@ namespace GitHubTagDeployer.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool UseProxy {
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string UseProxy {
             get {
-                return ((bool)(this["UseProxy"]));
+                return ((string)(this["UseProxy"]));
             }
             set {
                 this["UseProxy"] = value;
